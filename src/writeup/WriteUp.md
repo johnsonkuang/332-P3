@@ -55,8 +55,9 @@ the experiment, do the following:
    number of nodes you visit along the way.
 3. Run the same experiment for 1, 2, 3, 4, and 5 ply. And with all four
    implementations (use ply/2 for the cut-off for the parallel
-   implementations).  Make a pretty graph of your results (link to it from
-   here) and fill in the table here as well:
+   implementations). Make a pretty graph of your results and fill in the table 
+   here as well. NOTE: Your result should be the average number of nodes visited
+   across all fens for each bot & depth.
 
 <pre>TODO: Fill in the table below</pre>
 
@@ -79,6 +80,7 @@ THE EXPERIMENTS IN THIS SECTION WILL TAKE A LONG TIME TO RUN.
 To make this better, you should use Google Compute Engine:
 * Run multiple experiments at the same time, but **NOT ON THE SAME MACHINE**.
 * Google Compute Engine lets you spin up as many instances as you want.
+* Feel free to tweak your divide cutoff to beat clamps, **but keep it constant for your experiments.**
 
 #### Generating A Sample Of Games ####
 Because chess games are very different at the beginning, middle,
@@ -99,8 +101,8 @@ your three boards.
 Now that you have found an optimal cut-off, you should find the optimal
 number of processors. You MUST use Google Compute Engine for this
 experiment. For the same three boards that you used in the previous 
-experiment, at the same depth 5, using your optimal cut-offs, test your
-algorithm on a varying number of processors.  You shouldn't need to test all 32
+experiment, at the same depth 5, using your optimal cut-offs, test Parallel Minimax and
+Jamboree on a varying number of processors.  You shouldn't need to test all 32
 options; instead, do a binary search to find the best number. You can tell the 
 ForkJoin framework to only use k processors by giving an argument when
 constructing the pool, e.g.,
