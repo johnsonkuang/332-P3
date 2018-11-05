@@ -33,6 +33,7 @@
   <pre>TODO</pre>
 
 ## Experiments ##
+**NOTE**: Feel free to tweak your divide cutoff variable to beat clamps, **but keep it constant for your experiments.**
 
 ### Chess Game ###
 
@@ -76,11 +77,11 @@ like there is a substantial difference between the four algorithms?
 <pre>TODO</pre>
 
 ### Optimizing Experiments ###
-THE EXPERIMENTS IN THIS SECTION WILL TAKE A LONG TIME TO RUN. 
+**THE EXPERIMENTS IN THIS SECTION WILL TAKE A LONG TIME TO RUN.**
 To make this better, you should use Google Compute Engine:
-* Run multiple experiments at the same time, but **NOT ON THE SAME MACHINE**.
-* Google Compute Engine lets you spin up as many instances as you want.
-* Feel free to tweak your divide cutoff to beat clamps, **but keep it constant for your experiments.**
+* Google Compute Engine lets you spin up multiple instances. You should do this to run multiple experiments in parallel.
+* **DO NOT** run multiple experiments in parallel on the same machine. This will lead to strange results.
+* It's not strictly required to run experiments on multiple machines, but the write-up will take a lot longer if you don't do this.
 
 #### Generating A Sample Of Games ####
 Because chess games are very different at the beginning, middle,
