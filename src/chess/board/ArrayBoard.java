@@ -1798,10 +1798,10 @@ public class ArrayBoard implements Board<ArrayMove,ArrayBoard>
     
     s.append(canCastleKingside[WHITE]  ? "K" : "");
     s.append(canCastleQueenside[WHITE] ? "Q" : "");
-    s.append(hasCastled[WHITE]         ? "H" : "");
+    // s.append(hasCastled[WHITE]         ? "H" : "");
     s.append(canCastleKingside[BLACK]  ? "k" : "");
     s.append(canCastleQueenside[BLACK] ? "q" : "");
-    s.append(hasCastled[BLACK]         ? "h" : "");
+    // s.append(hasCastled[BLACK]         ? "h" : "");
     
     //if no castling bits
     if(s.charAt(s.length()-1) == ' ')
