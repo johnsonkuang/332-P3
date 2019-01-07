@@ -172,6 +172,14 @@ public class TestingInputs {
         new Object[]{
             "1nb2k2/rp5p/2p1Pr2/p5p1/PPBq4/b3P2P/3P1n2/RNB1K1NR b - -",
             new String[][]{{"d4a1"}, {"d4a1"}, {"d4a1"}, {"d4a1"}, {"d4a1"}}
+        },
+        new Object[]{
+            "8/8/8/6n1/8/8/r7/4k1K1 b - -",
+            new String[][]{{"g5f3"}, {"g5h7", "g5f3"}, {"g5f3"}, {"g5f3"}, {"g5f3"}}
+        },
+        new Object[]{
+            "8/1Q6/8/6n1/8/5n2/r7/4k1K1 w - -",
+            new String[][]{{"g1h1", "b7f3"}, {"b7f3"}, {"b7f3"}, {"b7f3"}, {"b7f3"}}
         }
     };
 }
