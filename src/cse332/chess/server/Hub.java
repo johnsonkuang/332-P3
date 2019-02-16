@@ -103,6 +103,7 @@ public class Hub extends JPanel {
         if (boolLoggedIn) {
             messagePanel.addMessage(s);
         }
+        System.out.println(s);
     }
 
     public void addChat(String s) {
@@ -165,6 +166,12 @@ public class Hub extends JPanel {
         case "END":
             gamePanel.receive("GAME_OVER", myName);
             connection.setGameChannel(null);
+            if (applet == null) {
+            	System.out.println("Most recent scores against: " + whoToMatch);
+            	connection.send("scores", "scores " + whoToMatch);
+            }
+        break;
+        case "SCORES":
             if (applet == null) {
                 System.exit(1);
             }

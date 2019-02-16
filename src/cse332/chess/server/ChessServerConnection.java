@@ -249,6 +249,7 @@ public class ChessServerConnection extends Thread {
                             else {
                                 hub.addMessage("    <no games played>");
                             }
+                            hub.receive("SCORES", null);
                         break;
                         case "PLAY_WITH":
                             String challenger = contents.split(" ")[1];
@@ -265,7 +266,6 @@ public class ChessServerConnection extends Thread {
                             hub.addMessage("The game is a draw!");
                         break;
                         case "WIN":
-                            hub.receive("END", null);
                             String[] parts2 = contents.split(" ");
                             String winner = parts2[1];
                             String message = parts2[2];
@@ -320,6 +320,7 @@ public class ChessServerConnection extends Thread {
                                     }
                                 break;
                             }
+                            hub.receive("END", null);
                         break;
                         case "YOUBUSY":
                             hub.addMessage("Your account is logged on elsewhere and in a match!");

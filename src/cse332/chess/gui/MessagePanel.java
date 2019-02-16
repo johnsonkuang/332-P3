@@ -176,7 +176,7 @@ public final class MessagePanel extends JPanel {
 
 	public void addMessage(String s) {
 	    if (taMessage == null) {
-	        System.out.println(s);
+	        //System.out.println(s);
 	        return;
 	    }
 
