@@ -2,8 +2,6 @@ package cse332.chess.interfaces;
 
 import java.util.List;
 
-import cse332.chess.interfaces.Move;
-
 public interface Board
 <
   M extends Move<M>,
@@ -49,7 +47,7 @@ extends Creatable<B>
      * String does not represent a legal move from the current
      * board position.
      * 
-     * @see Move.serverString
+     * @see Move#serverString
      * @param move the string.
      * @return the move corresponding to the specified string.
      */
@@ -146,7 +144,7 @@ extends Creatable<B>
      * Ex: (The starting position)
      * "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -"
      * 
-     * @see http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation
+     * @see "http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation"
      * 
      * @return the fen.
      */
