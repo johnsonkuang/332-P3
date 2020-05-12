@@ -5,6 +5,10 @@ import cse332.chess.interfaces.Board;
 import cse332.chess.interfaces.Move;
 import cse332.exceptions.NotYetImplementedException;
 
+/**
+ * Above and Beyond
+ */
+
 public class JamboreeSearcher<M extends Move<M>, B extends Board<M, B>> extends
         AbstractSearcher<M, B> {
 
