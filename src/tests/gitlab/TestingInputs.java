@@ -1,12 +1,5 @@
 package tests.gitlab;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Random;
-import java.util.Scanner;
-
-import tests.exceptions.InformativeException;
-
 public class TestingInputs {
     public static Object[][] FENS_TO_TEST = new Object[][] {
         new Object[]{

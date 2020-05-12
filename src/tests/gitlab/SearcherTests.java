@@ -1,14 +1,15 @@
 package tests.gitlab;
 
+import java.util.Arrays;
+
 import chess.board.ArrayBoard;
 import chess.board.ArrayMove;
 import chess.game.SimpleEvaluator;
-import cse332.chess.interfaces.Move;
+
 import cse332.chess.interfaces.Searcher;
 
-import static org.junit.Assert.*;
-
-import java.util.Arrays;
+import static org.hamcrest.CoreMatchers.hasItem;
+import static org.junit.Assert.assertThat;
 
 public abstract class SearcherTests {
     protected static Searcher<ArrayMove, ArrayBoard> STUDENT;
@@ -22,7 +23,7 @@ public abstract class SearcherTests {
 
     protected void checkResult(String fen, String[] valid, Searcher<ArrayMove, ArrayBoard> searcher, int depth, int cutoff) {
         ArrayMove result = getBestMove(fen, searcher, depth, cutoff);
-        assertTrue(Arrays.asList(valid).contains(result.toString()));
+        assertThat(Arrays.asList(valid), hasItem(result.toString()));
     }  
 
     protected void depth(int d, int c) {
