@@ -42,7 +42,7 @@ public class SimpleSearcher<M extends Move<M>, B extends Board<M, B>> extends
         for (M move : moves) {
             board.applyMove(move);
 
-            BestMove<M> currMove = minimax(evaluator, board, depth - 1, cached, seen).negate();
+            BestMove<M> currMove = minimax(evaluator, board, depth - 1, seen).negate();
             board.undoMove();
             if (currMove.value > bestMove.value) {
                 bestMove = currMove;
