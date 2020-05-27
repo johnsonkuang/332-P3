@@ -4,8 +4,6 @@ import cse332.chess.interfaces.AbstractSearcher;
 import cse332.chess.interfaces.Board;
 import cse332.chess.interfaces.Evaluator;
 import cse332.chess.interfaces.Move;
-import chess.bots.SimpleSearcher;
-import cse332.exceptions.NotYetImplementedException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,19 +17,21 @@ public class ParallelSearcher<M extends Move<M>, B extends Board<M, B>> extends
 
     public M getBestMove(B board, int myTime, int opTime) {
         List<M> moves = board.generateMoves();
-        return POOL.invoke(new SearchTask(board, this.evaluator, moves, 0, moves.size(), this.cutoff, 0)).move;
+        SearchTask searchTask = new SearchTask(board, this.evaluator, moves, 0, moves.size(), this.cutoff, 0);
+        BestMove<M> bestMove = POOL.invoke(searchTask);
+        return bestMove.move;
     }
 
     class SearchTask extends RecursiveTask<BestMove<M>> {
 
         public static final int DIVIDE_CUTOFF = 3;
-        private int depth;
-        private int cutoff;
-        private int lo;
-        private int hi;
-        private B board;
-        private Evaluator<B> evaluator;
-        private List<M> moves;
+        private final int depth;
+        private final int cutoff;
+        private final int lo;
+        private final int hi;
+        private final B board;
+        private final Evaluator<B> evaluator;
+        private final List<M> moves;
 
         public SearchTask(B board, Evaluator<B> evaluator, List<M> moves, int lo, int hi, int cutoff, int depth) {
             this.moves = moves;
@@ -45,51 +45,53 @@ public class ParallelSearcher<M extends Move<M>, B extends Board<M, B>> extends
 
         @Override
         protected BestMove<M> compute() {
-            if (hi - lo > DIVIDE_CUTOFF) { // Divide-and-conquer list of moves
+            if (hi - lo > DIVIDE_CUTOFF) { // Divide-and-conquer on the list of moves
                 int mid = lo + ((hi - lo) / 2);
                 SearchTask left = new SearchTask(board, evaluator, moves, lo, mid, cutoff, depth);
                 SearchTask right = new SearchTask(board, evaluator, moves, mid, hi, cutoff, depth);
                 left.fork();
                 BestMove<M> rightMove = right.compute();
                 BestMove<M> leftMove = left.join();
-                if (rightMove.value > leftMove.value) {
-                    return rightMove;
-                }
-                return leftMove;
-            } else if (hi - lo == 1) { // actually do the move, continue forking from new List of moves
-                M move = this.moves.get(lo);
-                B newBoard = this.board.copy();
+                return rightMove.value > leftMove.value ? rightMove : leftMove;
+            } else if (hi - lo == 1) { // Now we only have one move left. Apply the move, so depth increases by 1.
+                M move = moves.get(lo);
+                B newBoard = board.copy();
                 newBoard.applyMove(move);
-                depth++;
-                if (depth + cutoff == ply) { // pass it off to minimax if current parallized depth + cutoff = total desired ply
-                    BestMove<M> bestMove = SimpleSearcher.minimax(evaluator, newBoard, cutoff);
+                // Execute sequentially using SimpleSearcher's minimax iff newDepth + cutoff == ply
+                if (depth + cutoff + 1 == ply) {
+                    BestMove<M> bestMove = SimpleSearcher.minimax(evaluator, newBoard, cutoff).negate();
+                    bestMove.move = move;
                     return bestMove;
                 }
+                // Continue forking in parallel iff newDepth + cutoff != ply
                 List<M> newMoves = newBoard.generateMoves();
-                SearchTask newTask = new SearchTask(board, evaluator, newMoves, 0, newMoves.size(), cutoff, depth + 1);
-                return newTask.compute();
-            } else { // Sequentially fork list of moves
+                SearchTask newTask = new SearchTask(
+                        newBoard, evaluator, newMoves, 0, newMoves.size(), cutoff, depth + 1
+                );
+                BestMove<M> bestMove = newTask.compute().negate();
+                bestMove.move = move;
+                return bestMove;
+            } else { // Sequentially fork over the remaining list of moves if below DIVIDE_CUTOFF
                 List<SearchTask> tasks = new ArrayList<SearchTask>();
-                List<BestMove<M>> bestMoves = new ArrayList<BestMove<M>>();
-
-                for (int i = lo; i < hi - 1; i++) {
-                    SearchTask curr = new SearchTask(board, evaluator, moves, i, i + 1, cutoff, depth);
-                    tasks.add(curr);
-                    curr.fork();
+                for (int i = 0; i < hi - lo - 1; i++) {
+                    SearchTask newTask = new SearchTask(
+                            board, evaluator, moves, lo + i, lo + i + 1, cutoff, depth
+                    );
+                    tasks.add(newTask);
+                    newTask.fork();
                 }
+
                 SearchTask last = new SearchTask(board, evaluator, moves, hi - 1, hi, cutoff, depth);
-                bestMoves.add(last.compute());
-                for(SearchTask task: tasks){
-                    bestMoves.add(task.join());
-                }
+                BestMove<M> bestMove = last.compute();
 
-                BestMove max = bestMoves.get(0);
-                for(BestMove bM : bestMoves){
-                    if(bM.value > max.value){
-                        max = bM;
+                for (SearchTask task : tasks) {
+                    BestMove<M> currMove = task.join();
+                    if (currMove.value > bestMove.value) {
+                        bestMove = currMove;
                     }
                 }
-                return max;
+
+                return bestMove;
             }
         }
     }
