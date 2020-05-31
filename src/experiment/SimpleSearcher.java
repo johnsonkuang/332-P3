@@ -27,26 +27,26 @@ public class SimpleSearcher<M extends Move<M>, B extends Board<M, B>> extends
             Evaluator<B> evaluator, B board, int ply
     ) {
         Set<Board> seen = new HashSet<Board>();
-        return minimax(evaluator, board, 0, ply, seen);
+        return minimax(evaluator, board, ply, seen);
     }
 
     static <M extends Move<M>, B extends Board<M, B>> BestMove<M> minimax (
-            Evaluator<B> evaluator, B board, int depth, int ply, Set<Board> seen) {
-        if (depth == ply || seen.contains(board)) {
+            Evaluator<B> evaluator, B board, int depthLeft, Set<Board> seen) {
+        if (depthLeft == 0) { // || seen.contains(board)
             return new BestMove<M>(evaluator.eval(board));
         }
         seen.add(board);
 
         List<M> moves = board.generateMoves();
         if (moves.isEmpty()) {
-            return new BestMove<M>(board.inCheck() ? -evaluator.mate() - depth : -evaluator.stalemate());
+            return new BestMove<M>(board.inCheck() ? -evaluator.mate() + depthLeft : -evaluator.stalemate());
         }
 
         BestMove<M> bestMove = new BestMove<M>(-evaluator.infty());
 
         for (M move : moves) {
             board.applyMove(move);
-            BestMove<M> currMove = minimax(evaluator, board, depth + 1, ply, seen).negate();
+            BestMove<M> currMove = minimax(evaluator, board, depthLeft - 1, seen).negate();
             board.undoMove();
             if (currMove.value > bestMove.value) {
                 bestMove = currMove;
