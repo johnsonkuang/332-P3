@@ -24,7 +24,7 @@ public class ParallelSearcher<M extends Move<M>, B extends Board<M, B>> extends
 
     class SearchTask extends RecursiveTask<BestMove<M>> {
 
-        public static final int DIVIDE_CUTOFF = 3;
+        public static final int DIVIDE_CUTOFF = 100;
         private final int depth;
         private final int cutoff;
         private final int lo;
@@ -72,6 +72,10 @@ public class ParallelSearcher<M extends Move<M>, B extends Board<M, B>> extends
                 bestMove.move = move;
                 return bestMove;
             } else { // Sequentially fork over the remaining list of moves if below DIVIDE_CUTOFF
+                if(moves.isEmpty()){
+                    return new BestMove<M>(board.inCheck() ? -evaluator.mate() - depth : -evaluator.stalemate());
+                }
+
                 List<SearchTask> tasks = new ArrayList<SearchTask>();
                 for (int i = 0; i < hi - lo - 1; i++) {
                     SearchTask newTask = new SearchTask(
@@ -80,7 +84,6 @@ public class ParallelSearcher<M extends Move<M>, B extends Board<M, B>> extends
                     tasks.add(newTask);
                     newTask.fork();
                 }
-
                 SearchTask last = new SearchTask(board, evaluator, moves, hi - 1, hi, cutoff, depth);
                 BestMove<M> bestMove = last.compute();
 

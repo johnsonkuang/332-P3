@@ -2,6 +2,7 @@ package chess.setup;
 
 import java.util.Observer;
 
+import chess.bots.ParallelSearcher;
 import cse332.chess.interfaces.Searcher;
 import cse332.chess.server.Hub;
 import chess.board.ArrayBoard;
@@ -21,11 +22,11 @@ public class Engine {
 	 */
 	
 	private Searcher <ArrayMove, ArrayBoard>
-	    searcher = new LazySearcher<ArrayMove,ArrayBoard>();
+	    searcher = new ParallelSearcher<>();
 	
 	public Engine(int time, int inc) {
-        searcher.setDepth(2);
-        searcher.setCutoff(0);
+        searcher.setDepth(5);
+        searcher.setCutoff(2);
 
         searcher.setEvaluator(new SimpleEvaluator());
         searcher.setTimer(new SimpleTimer(time, inc));
