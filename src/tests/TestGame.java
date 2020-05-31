@@ -3,6 +3,7 @@ package tests;
 import chess.board.ArrayBoard;
 import chess.board.ArrayMove;
 import chess.bots.LazySearcher;
+import chess.bots.ParallelSearcher;
 import chess.bots.SimpleSearcher;
 import chess.game.SimpleEvaluator;
 import cse332.chess.interfaces.Move;
@@ -21,8 +22,8 @@ public class TestGame {
     }
 
     public TestGame() {
-        setupWhitePlayer(new SimpleSearcher<ArrayMove, ArrayBoard>(), 3, 3);
-        setupBlackPlayer(new SimpleSearcher<ArrayMove, ArrayBoard>(), 4, 4);
+        setupWhitePlayer(new ParallelSearcher<>(), 5, 2);
+        setupBlackPlayer(new ParallelSearcher<>(), 5, 0);
     }
     
     public void play() {

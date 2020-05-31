@@ -1,0 +1,82 @@
+All times measured in nanoseconds for precision
+
+Trial 1 for cutoff 0
+	START board: e2e4 in 109200.0
+	MIDDLE board: g7g6 in 23800.0
+	END board: h2h4 in 22200.0
+Trial 2 for cutoff 0
+	START board: e2e4 in 22700.0
+	MIDDLE board: g7g6 in 26100.0
+	END board: h2h4 in 29100.0
+Trial 3 for cutoff 0
+	START board: e2e4 in 44100.0
+	MIDDLE board: g7g6 in 24500.0
+	END board: h2h4 in 24800.0
+Trial 4 for cutoff 0
+	START board: e2e4 in 25200.0
+	MIDDLE board: g7g6 in 22600.0
+	END board: h2h4 in 37900.0
+Trial 1 for cutoff 1
+	START board: e2e4 in 27400.0
+	MIDDLE board: g7g6 in 25700.0
+	END board: h2h4 in 48500.0
+Trial 2 for cutoff 1
+	START board: e2e4 in 27000.0
+	MIDDLE board: g7g6 in 49300.0
+	END board: h2h4 in 38000.0
+Trial 3 for cutoff 1
+	START board: e2e4 in 31400.0
+	MIDDLE board: g7g6 in 26500.0
+	END board: h2h4 in 25100.0
+Trial 4 for cutoff 1
+	START board: e2e4 in 38700.0
+	MIDDLE board: g7g6 in 37000.0
+	END board: h2h4 in 30700.0
+Trial 1 for cutoff 2
+	START board: e2e4 in 56600.0
+	MIDDLE board: g7g6 in 32300.0
+	END board: h2h4 in 26400.0
+Trial 2 for cutoff 2
+	START board: e2e4 in 25500.0
+	MIDDLE board: g7g6 in 24700.0
+	END board: h2h4 in 26300.0
+Trial 3 for cutoff 2
+	START board: e2e4 in 41000.0
+	MIDDLE board: g7g6 in 26000.0
+	END board: h2h4 in 22700.0
+Trial 4 for cutoff 2
+	START board: e2e4 in 26100.0
+	MIDDLE board: g7g6 in 35700.0
+	END board: h2h4 in 24500.0
+Trial 1 for cutoff 3
+	START board: e2e4 in 27000.0
+	MIDDLE board: g7g6 in 22200.0
+	END board: h2h4 in 34500.0
+Trial 2 for cutoff 3
+	START board: e2e4 in 27800.0
+	MIDDLE board: g7g6 in 23400.0
+	END board: h2h4 in 25000.0
+Trial 3 for cutoff 3
+	START board: e2e4 in 22000.0
+	MIDDLE board: g7g6 in 30800.0
+	END board: h2h4 in 39800.0
+Trial 4 for cutoff 3
+	START board: e2e4 in 41200.0
+	MIDDLE board: g7g6 in 21300.0
+	END board: h2h4 in 22800.0
+Trial 1 for cutoff 4
+	START board: e2e4 in 30100.0
+	MIDDLE board: g7g6 in 22900.0
+	END board: h2h4 in 22500.0
+Trial 2 for cutoff 4
+	START board: e2e4 in 26400.0
+	MIDDLE board: g7g6 in 24900.0
+	END board: h2h4 in 41200.0
+Trial 3 for cutoff 4
+	START board: e2e4 in 31900.0
+	MIDDLE board: g7g6 in 21400.0
+	END board: h2h4 in 21000.0
+Trial 4 for cutoff 4
+	START board: e2e4 in 39400.0
+	MIDDLE board: g7g6 in 24400.0
+	END board: h2h4 in 29200.0
