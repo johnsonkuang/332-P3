@@ -1,5 +1,6 @@
-package chess.bots;
+package experiment;
 
+import chess.bots.BestMove;
 import cse332.chess.interfaces.AbstractSearcher;
 import cse332.chess.interfaces.Board;
 import cse332.chess.interfaces.Evaluator;
@@ -34,6 +35,7 @@ public class SimpleSearcher<M extends Move<M>, B extends Board<M, B>> extends
         if (depthLeft == 0) { // || seen.contains(board)
             return new BestMove<M>(evaluator.eval(board));
         }
+        seen.add(board);
 
         List<M> moves = board.generateMoves();
         if (moves.isEmpty()) {
@@ -46,7 +48,6 @@ public class SimpleSearcher<M extends Move<M>, B extends Board<M, B>> extends
             board.applyMove(move);
             BestMove<M> currMove = minimax(evaluator, board, depthLeft - 1, seen).negate();
             board.undoMove();
-
             if (currMove.value > bestMove.value) {
                 bestMove = currMove;
                 bestMove.move = move;
