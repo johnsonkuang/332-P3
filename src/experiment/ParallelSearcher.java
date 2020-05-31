@@ -1,7 +1,6 @@
 package experiment;
 
 import chess.bots.BestMove;
-import experiment.SimpleSearcher;
 import cse332.chess.interfaces.AbstractSearcher;
 import cse332.chess.interfaces.Board;
 import cse332.chess.interfaces.Evaluator;
