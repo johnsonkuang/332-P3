@@ -22,9 +22,10 @@ public class ParallelSearcher<M extends Move<M>, B extends Board<M, B>> extends
         return bestMove.move;
     }
 
-    class SearchTask extends RecursiveTask<BestMove<M>> {
+    private class SearchTask extends RecursiveTask<BestMove<M>> {
 
-        public static final int DIVIDE_CUTOFF = 100;
+        private static final int DIVIDE_CUTOFF = 100;
+        private static final int LAST_MOVE = 1;
         private final int depth;
         private final int cutoff;
         private final int lo;
@@ -53,7 +54,7 @@ public class ParallelSearcher<M extends Move<M>, B extends Board<M, B>> extends
                 BestMove<M> rightMove = right.compute();
                 BestMove<M> leftMove = left.join();
                 return rightMove.value > leftMove.value ? rightMove : leftMove;
-            } else if (hi - lo == 1) { // Now we only have one move left. Apply the move, so depth increases by 1.
+            } else if (hi - lo == LAST_MOVE) { // Now we only have one move left. Apply the move, so depth increases by 1.
                 M move = moves.get(lo);
                 B newBoard = board.copy();
                 newBoard.applyMove(move);

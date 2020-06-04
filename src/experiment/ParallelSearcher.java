@@ -25,7 +25,7 @@ public class ParallelSearcher<M extends Move<M>, B extends Board<M, B>> extends
 
     class SearchTask extends RecursiveTask<BestMove<M>> {
 
-        public static final int DIVIDE_CUTOFF = 100;
+        public static final int DIVIDE_CUTOFF = 10;
         private final int depth;
         private final int cutoff;
         private final int lo;

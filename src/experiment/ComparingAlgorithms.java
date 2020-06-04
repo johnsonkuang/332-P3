@@ -13,9 +13,9 @@ import cse332.chess.interfaces.Searcher;
  * Board: defines the board states that the searcher will be searching through
  * 4 trials are run for each cutoff
  *
- * Results are saved in SeqCutoff.txt
+ * Results are saved in ComparingAlgorithms.txt
  */
-public class SequentialCutoff {
+public class ComparingAlgorithms {
     public enum Board {
         START("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -"),
         MIDDLE("r2qkb1r/pp4pp/2n1p3/2pp1p1Q/5B2/2NP4/PPP2PPP/R4RK1 b kq -"),
@@ -29,6 +29,8 @@ public class SequentialCutoff {
 
         public String getBoard() {return board;}
     }
+
+    public static final int PARALLEL_CUTOFF = 3;
 
     public static void printMove(String fen, Searcher<ArrayMove, ArrayBoard> searcher, int depth, int cutoff, String name) {
         searcher.setDepth(depth);
@@ -44,13 +46,20 @@ public class SequentialCutoff {
         System.out.println("\t" + name + " board: " + move + " in " + totalTime);
     }
     public static void main(String[] args) {
-        for(int cutoff = 0; cutoff < 5; cutoff++){
-            for(int trial = 1; trial < 5; trial++){
-                System.out.println("Trial " + trial + " for cutoff " + cutoff);
-                for(Board b : Board.values()){
-                    Searcher<ArrayMove, ArrayBoard> searcher = new ParallelSearcher<>();
-                    printMove(b.getBoard(), searcher, 5, cutoff, b.name());
-                }
+        System.out.println("Parallel Searcher:");
+        for(int trial = 1; trial < 5; trial++){
+            System.out.println("Trial " + trial);
+            for(Board b : Board.values()){
+                Searcher<ArrayMove, ArrayBoard> searcher = new ParallelSearcher<>();
+                printMove(b.getBoard(), searcher, 5, PARALLEL_CUTOFF, b.name());
+            }
+        }
+        System.out.println("Sequential Searcher:");
+        for(int trial = 1; trial < 5; trial++){
+            System.out.println("Trial " + trial);
+            for(Board b : Board.values()){
+                Searcher<ArrayMove, ArrayBoard> searcher = new SimpleSearcher<>();
+                printMove(b.getBoard(), searcher, 5, PARALLEL_CUTOFF, b.name());
             }
         }
     }

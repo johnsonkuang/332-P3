@@ -1,0 +1,35 @@
+Parallel Searcher:
+Trial 1
+	START board: e2e4 in 1861.2887
+	MIDDLE board: g7g6 in 1668.8149
+	END board: a1b1 in 1565.9994
+Trial 2
+	START board: e2e4 in 957.4671
+	MIDDLE board: g7g6 in 1219.8134
+	END board: a1b1 in 1321.8148
+Trial 3
+	START board: e2e4 in 924.464
+	MIDDLE board: g7g6 in 1165.593
+	END board: a1b1 in 1351.954
+Trial 4
+	START board: e2e4 in 954.9687
+	MIDDLE board: g7g6 in 1145.1988
+	END board: a1b1 in 1325.1397
+
+Sequential Searcher:
+Trial 1
+	START board: e2e4 in 3957.9005
+	MIDDLE board: g7g6 in 4812.0032
+	END board: a1b1 in 5218.6575
+Trial 2
+	START board: e2e4 in 3828.1138
+	MIDDLE board: g7g6 in 4691.1489
+	END board: a1b1 in 5064.282
+Trial 3
+	START board: e2e4 in 3734.7541
+	MIDDLE board: g7g6 in 4455.9938
+	END board: a1b1 in 5073.0912
+Trial 4
+	START board: e2e4 in 3648.773
+	MIDDLE board: g7g6 in 4376.5026
+	END board: a1b1 in 5044.7229
