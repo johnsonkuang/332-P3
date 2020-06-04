@@ -50,7 +50,7 @@ public class ComparingAlgorithms {
         for(int trial = 1; trial < 5; trial++){
             System.out.println("Trial " + trial);
             for(Board b : Board.values()){
-                Searcher<ArrayMove, ArrayBoard> searcher = new ParallelSearcher<>();
+                Searcher<ArrayMove, ArrayBoard> searcher = new ExperimentalParallelSearcher<>();
                 printMove(b.getBoard(), searcher, 5, PARALLEL_CUTOFF, b.name());
             }
         }
@@ -58,7 +58,7 @@ public class ComparingAlgorithms {
         for(int trial = 1; trial < 5; trial++){
             System.out.println("Trial " + trial);
             for(Board b : Board.values()){
-                Searcher<ArrayMove, ArrayBoard> searcher = new SimpleSearcher<>();
+                Searcher<ArrayMove, ArrayBoard> searcher = new ExperimentalParallelSearcher<>();
                 printMove(b.getBoard(), searcher, 5, PARALLEL_CUTOFF, b.name());
             }
         }
