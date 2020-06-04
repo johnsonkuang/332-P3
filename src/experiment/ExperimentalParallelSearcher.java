@@ -1,6 +1,9 @@
 package experiment;
 
+import chess.board.ArrayBoard;
+import chess.board.ArrayMove;
 import chess.bots.BestMove;
+import chess.bots.SimpleSearcher;
 import cse332.chess.interfaces.AbstractSearcher;
 import cse332.chess.interfaces.Board;
 import cse332.chess.interfaces.Evaluator;
@@ -8,15 +11,18 @@ import cse332.chess.interfaces.Move;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
 
 
-public class ParallelSearcher<M extends Move<M>, B extends Board<M, B>> extends
+public class ExperimentalParallelSearcher<M extends Move<M>, B extends Board<M, B>> extends
         AbstractSearcher<M, B> {
+    public static AtomicLong nodes = new AtomicLong(0);
     private static final ForkJoinPool POOL = new ForkJoinPool();
 
     public M getBestMove(B board, int myTime, int opTime) {
+        nodes.set(0);
         List<M> moves = board.generateMoves();
         SearchTask searchTask = new SearchTask(board, this.evaluator, moves, 0, moves.size(), this.cutoff, 0);
         BestMove<M> bestMove = POOL.invoke(searchTask);
@@ -25,7 +31,7 @@ public class ParallelSearcher<M extends Move<M>, B extends Board<M, B>> extends
 
     class SearchTask extends RecursiveTask<BestMove<M>> {
 
-        public static final int DIVIDE_CUTOFF = 100;
+        public static final int DIVIDE_CUTOFF = 50;
         private final int depth;
         private final int cutoff;
         private final int lo;
@@ -58,10 +64,13 @@ public class ParallelSearcher<M extends Move<M>, B extends Board<M, B>> extends
                 M move = moves.get(lo);
                 B newBoard = board.copy();
                 newBoard.applyMove(move);
+                nodes.incrementAndGet();
                 // Execute sequentially using SimpleSearcher's minimax iff newDepth + cutoff == ply
                 if (depth + cutoff + 1 == ply) {
-                    BestMove<M> bestMove = SimpleSearcher.minimax(evaluator, newBoard, cutoff).negate();
+                    ExperimentalSimpleSearcher<ArrayMove, ArrayBoard> simpleSearcher = CountNodes.newSimpleSearcher(ply);
+                    BestMove<M> bestMove = simpleSearcher.countingMinimax(evaluator, newBoard, cutoff).negate();
                     bestMove.move = move;
+                    nodes.getAndAdd(simpleSearcher.instanceNodes);
                     return bestMove;
                 }
                 // Continue forking in parallel iff newDepth + cutoff != ply
