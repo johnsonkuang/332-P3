@@ -48,7 +48,7 @@ public class SequentialCutoff {
             for(int trial = 1; trial < 5; trial++){
                 System.out.println("Trial " + trial + " for cutoff " + cutoff);
                 for(Board b : Board.values()){
-                    Searcher<ArrayMove, ArrayBoard> searcher = new ParallelSearcher<>();
+                    Searcher<ArrayMove, ArrayBoard> searcher = new ExperimentalParallelSearcher<>();
                     printMove(b.getBoard(), searcher, 5, cutoff, b.name());
                 }
             }
